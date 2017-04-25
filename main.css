@@ -1,0 +1,67 @@
+.hidden {
+	display: none;
+}
+
+body {
+	margin: 20px;
+	font-family: monospace;
+	/*background-image: url('cog.jpg')*/
+}
+
+header {
+	padding-top: 60px;
+	text-align: center;
+}
+
+button {
+	border-radius:5px 17px 5px;
+	background-color: white;
+}
+
+img {
+	size: auto;
+}
+
+input {
+	display: block;	
+}
+
+ul {
+	text-align: center;
+	padding-left: 0;
+}
+
+li {
+	list-style: none;
+	width: 250px;
+	padding-top: 5px;
+	margin: auto;
+}
+
+.answer ul li span {
+	text-align: center;
+}
+
+.answer ul li input {
+	margin-top: 2px;
+	float: left;
+}
+
+.question-area {
+	text-align: center;
+	font-size: 18px;
+	margin: 50px;
+	padding: 25px;
+	border: black solid 3px;
+	border-radius: 15px 49px 15px;
+	background-color: lightgray;
+}
+
+#start-button {
+	text-align: center;
+	font-size: 24px;
+}
+
+.toggle {
+	text-align: center;
+}
