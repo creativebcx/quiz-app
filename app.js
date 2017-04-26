@@ -41,3 +41,7 @@ function startQuiz() {
 	state.isStarted = true;
 }
 //wrapping our logic for hidden classes
+
+$('.submit').click(function(event) {
+	console.log(state.questions[0]);
+});
