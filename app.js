@@ -3,6 +3,7 @@ var elStartButton = $('#start-button');
 var elQuestionArea = $('.question-area');
 var elSubmitButton = $('.submit');
 var elBackButton = $('.back');
+var toggle = $('.toggle');
 var questionSet = 0;
 var state = {
 	isStarted: false,
@@ -22,10 +23,10 @@ var state = {
 		{
 		text: "2. What type of suspension design characterized dw-link?",
 		answer: [
-		"single pivot",
-		"four bar",
-		"double bar",
-		"Santa Cruz Design"
+			"single pivot",
+			"four bar",
+			"double bar",
+			"Santa Cruz Design"
 		],
 		correctAnswer: [
 			1,
@@ -41,6 +42,7 @@ elButton.click( function(event) {
 function startQuiz() {
 	elStartButton.addClass('hidden');
 	elQuestionArea.removeClass('hidden');
+	toggle.removeClass('hidden');
 	state.isStarted = true;
 	newQuestionAnswer();
 }
@@ -57,6 +59,7 @@ elSubmitButton.click( function(event) {
 	if (questionSet != state.questions.length - 1) {
 		questionSet++;
 	};
+	
 	//	elSubmitButton
 	//};
 	console.log('questionSet');
