@@ -3,8 +3,11 @@ var elStartButton = $('#start-button');
 var elQuestionArea = $('.question-area');
 var elSubmitButton = $('.submit');
 var elBackButton = $('.back');
+var elMoveForwardButton = $('.forward');
 var toggle = $('.toggle');
 var questionSet = 0;
+var newValue = 0;
+var correctA = 0;
 var state = {
 	isStarted: false,
 	currentStep: 0,
@@ -12,7 +15,7 @@ var state = {
 		text: "1. What size wheels are common on mountain bikes?",
 		answer: [
 			"24in, 26in, 27in",
-			"26cm, 27.5cm, 29cm",
+			"26cm, 27.5cm, 29cm", 
 			"26in, 27.5in, 29in",
 			"none of the above"
 		],
@@ -29,7 +32,7 @@ var state = {
 			"Santa Cruz Design"
 		],
 		correctAnswer: [
-			1,
+			0,
 			"single-pivot design is a characteristic of dw-link"]
 		}]
 };
@@ -45,8 +48,23 @@ function startQuiz() {
 	toggle.removeClass('hidden');
 	state.isStarted = true;
 	newQuestionAnswer();
+	attachRadioHandler();
 }
-//wrapping our logic for hidden classes
+//wrapping our logic for hidden classes & changing "state"
+
+elMoveForwardButton.click( function(event) {
+	if (questionSet != state.questions.length - 1) {
+		questionSet++;
+		newQuestionAnswer();
+		attachRadioHandler();
+	}
+	else {
+		finalScore();
+	};
+	$('.message-area').html(
+			" "
+		);
+});
 
 elBackButton.click( function(event) {
 	if (questionSet != 0) {
@@ -56,41 +74,60 @@ elBackButton.click( function(event) {
 });
 
 elSubmitButton.click( function(event) {
-	if (questionSet != state.questions.length - 1) {
-		questionSet++;
-	};
-	
-	//	elSubmitButton
-	//};
-	console.log('questionSet');
-	newQuestionAnswer();
+	check();
+	attachRadioHandler();
 });
 
 function newQuestionAnswer() {
 	$('.question-area').html(
 		'<div id="question">' + state.questions[questionSet].text + '</div>' +
 		'<ul class="answer-list">' + 
-			'<li>' + '<input name="answer" type="radio" class="answer-1"/>' + '<span>' + state.questions[questionSet].answer[0] + '</span>' + '</li>' +
-			'<li>' + '<input name="answer" type="radio" class="answer-2"/>' + '<span>' + state.questions[questionSet].answer[1] + '</span>' + '</li>' +
-			'<li>' + '<input name="answer" type="radio" class="answer-3"/>' + '<span>' + state.questions[questionSet].answer[2] + '</span>' + '</li>' +
-			'<li>' + '<input name="answer" type="radio" class="answer-4"/>' + '<span>' + state.questions[questionSet].answer[3] + '</span>' + '</li>' +
+			'<li>' + '<input value="0" name="answer" type="radio"/>' + '<span>' + 
+				state.questions[questionSet].answer[0] + '</span>' + '</li>' +
+			'<li>' + '<input value="1" name="answer" type="radio"/>' + '<span>' + 
+				state.questions[questionSet].answer[1] + '</span>' + '</li>' +
+			'<li>' + '<input value="2" name="answer" type="radio"/>' + '<span>' + 
+				state.questions[questionSet].answer[2] + '</span>' + '</li>' +
+			'<li>' + '<input value="3"name="answer" type="radio"/>' + '<span>' + 
+				state.questions[questionSet].answer[3] + '</span>' + '</li>' +
 			'</ul>');
-	if (validateAnswer(2, questionSet)) {
+};
+function attachRadioHandler(event) {
+		$('input[name="answer"]').change(function () {
+			newValue = this.value;
+		});
+};	
+
+
+function check() {
+	if (validateAnswer()) {
 		$('.message-area').html(
-			state.questions[questionSet].correctAnswer[1]
+			"Correct Answer! : " + state.questions[questionSet].correctAnswer[1]
 	)}
 	else {
 		$('.message-area').html(
 			"incorrect answer"
-		)};
+		)
+	};
+	
+};
+	function validateAnswer() {
+	console.log(questionSet)
+	if (newValue == state.questions[questionSet].correctAnswer[0]) {
+		correctA++;
+		return true;
+	}
+	else {
+		return false;
+	}
 };
 
-function validateAnswer(answerIndex, questionIndex) {
-	return state.questions[questionIndex].correctAnswer[0] == answerIndex;
+function finalScore () {
+	$('.question-area').html(
+		"Your final score is " + correctA + " out of 10!"
+		);
 };
 
-
-console.log(validateAnswer(3,0));
 
 
 
